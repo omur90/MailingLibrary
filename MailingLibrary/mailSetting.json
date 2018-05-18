@@ -1,0 +1,7 @@
+﻿{
+  "FromMail": "feza@testproject.site",
+  "FromMailPassword": "Feza1990",
+  "SmtpHost": "smtp.testproject.site",
+  "SmtpPort": 587,
+  "EnableSsl": false
+}
