@@ -1,41 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace MailingLibrary
 {
     public class MailOperation
     {
-        public string SendMail(string from, string mailTo, List<string> ccList, string mailSubject, string mailContent,string mailSettingFile)
+        public string SendMail(string mailTo, List<string> ccList, string mailSubject, string mailContent, string mailSettingFile, string displayName = "")
         {
             var result = string.Empty;
             try
             {
+                var setMailSetting = ReadMailSetting(mailSettingFile);
+
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(mailTo));
-                if (ccList !=null)
+                if (ccList != null)
                 {
                     foreach (var item in ccList)
                     {
                         message.CC.Add(new MailAddress(item));
                     }
                 }
-               
 
-                message.From = new MailAddress(from);
+                message.From = new MailAddress(setMailSetting.FromMail, displayName);
                 message.Subject = mailSubject;
                 message.Body = mailContent;
                 message.IsBodyHtml = true;
-
-
-                var setMailSetting = ReadMailSetting(mailSettingFile);
 
                 using (var smtp = new SmtpClient())
                 {
@@ -66,22 +60,20 @@ namespace MailingLibrary
         public MailSettingItem ReadMailSetting(string mailSettingFile)
         {
             string json = File.ReadAllText(mailSettingFile);
-            //var json = );
-            //string json = Path.Combine(Environment.CurrentDirectory, @"\", "mailSetting.json");
             MailSettingItem mailSetting = JsonConvert.DeserializeObject<MailSettingItem>(json);
             return mailSetting;
         }
 
-        public string UpdateMailSetting(string fromMail, string fromMailPassword, string smtpHost, int smptPort,bool enableSsl)
+        public string UpdateMailSetting(string fromMail, string fromMailPassword, string smtpHost, int smptPort, bool enableSsl, string mailSettingFile)
         {
             string result;
             try
             {
-                string json = File.ReadAllText(@"d:\mailSetting.json");
+                string json = File.ReadAllText(mailSettingFile);
                 dynamic jsonObj = Newtonsoft.Json.JsonConvert.DeserializeObject(json);
                 if (!string.IsNullOrWhiteSpace(fromMail))
                 {
-                    jsonObj["FromMail"]= fromMail;
+                    jsonObj["FromMail"] = fromMail;
                 }
                 if (!string.IsNullOrWhiteSpace(fromMailPassword))
                 {
@@ -96,14 +88,14 @@ namespace MailingLibrary
                 {
                     jsonObj["SmtpHost"] = smtpHost;
                 }
-                if (smptPort > 0 )
+                if (smptPort > 0)
                 {
                     jsonObj["SmtpPort"] = smptPort;
                 }
 
 
                 string output = Newtonsoft.Json.JsonConvert.SerializeObject(jsonObj, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(@"d:\mailSetting.json", output);
+                File.WriteAllText(mailSettingFile, output);
                 result = "Mail ayarları başarılı bir şekilde güncellenmiştir.";
             }
             catch (Exception ex)

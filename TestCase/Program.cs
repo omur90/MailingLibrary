@@ -12,11 +12,6 @@ namespace TestCase
         static void Main(string[] args)
         {
             MailingLibrary.MailOperation mailOperation = new MailOperation();
-            var settingItem = mailOperation.ReadMailSetting();
-
-            string result = mailOperation.UpdateMailSetting("a", "b", "c", 336, true);
-
-            Console.WriteLine(result);
             Console.ReadLine();
 
         }
