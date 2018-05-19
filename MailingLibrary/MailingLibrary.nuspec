@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MailingLibrary</id>
+    <version>1.0.0.0</version>
+    <title>$title$</title>
+    <authors>Ömür Kurt</authors>
+    <owners>ÖmürKurt</owners>
+    <licenseUrl>http://https://github.com/omur90/MailingLibrary</licenseUrl>
+    <projectUrl>http://https://github.com/omur90/MailingLibrary</projectUrl>
+    <iconUrl>http://https://github.com/omur90/MailingLibrary/blob/master/MailingLibrary/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+      A way to make your sending mail easier. The goal of this library,
+      clean code to send mail with relevant parameters .(Mail işlemlerinizi kolaylaştıran bir dll'dir. Referans edildikden sonra ilgili parametreler ile kolay mail gönderimi amaçlanmıştır.)
+    </description>
+    <releaseNotes>My first sending to nuget package. Nuget package ilk gönderimim</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>MailingLibrary omurkurt</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="10.0.1"></dependency>
+    </dependencies>
+ 
+  </metadata>
+
+  <files>
+    <file src="bin\Debug\MailingLibrary.dll" target="lib"></file>
+  </files>
+</package>
