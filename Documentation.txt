@@ -1,0 +1,35 @@
+1) ReadMailSetting() --> MailSettingItems class ı döndürüyor. 
+MailSettingItem ise, gerekli ayarların property'lerini map ettiğim class dır.
+
+-----------------------------------------------------------------------------------------------------
+
+2) UpdateMailSetting --> ilgili parametreleri alıp, ayarların okunduğu .json içeriğini güncellemektedir.
+MailSettingItem class'ındaki property'lerin hepsini parametre olarak alıyor. Parametreleri ise söyledir ;
+UpdateMailSetting(string fromMail, string fromMailPassword, string smtpHost, int smptPort,bool enableSsl,string mailSettingFile)
+
+* mailSettingFile = mailSetting.json. 
+
+
+-----------------------------------------------------------------------------------------------------
+
+3) SendMail() -->   (string mailTo,List<string> ccList, string mailSubject, string mailContent,string mailSettingFile, string displayName="")
+
+* mailSettingFile = mailSetting.json. 
+
+Example .json 
+{
+  "FromMail": "domain@domain.com",
+  "FromMailPassword": "test1234",
+  "SmtpHost": "smtp.domain.com",
+  "SmtpPort": 000,
+  "EnableSsl": false
+}
+
+* displayName = mailinizde görüntülenecek başlık. 
+* mailTo = kime gönderilecek,
+* ccList = birden fazla kişileri cc ye eklemeyebiliriz. List<string> eğer cc boş ise null yollayabiliriz.
+* mailSubject = mail title'dır. Başlık kısmını isimlendirmek için.
+* mailContent = mail içerik kısmıdır. 
+* attacmentCurrentFilePaths = Birden fazla dosyanın fiziksel path ini ekleyerek multi file - attac edebiliriz. Eğer file eklenmiyecek ise null yollayabiliriz.
+
+Ömür Kurt.
